@@ -16,6 +16,16 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@core": ["libs/core/src"],
+      "@core/*": ["libs/core/src/*"],
+      "@core-api": ["apps/core-api/src"],
+      "@core-api/*": ["apps/core-api/src/*"],
+      "@storage": ["libs/storage/src"],
+      "@storage/*": ["libs/storage/src/*"],
+      "@support": ["libs/support/src"],
+      "@support/*": ["libs/support/src/*"]
+    }
   }
 }
