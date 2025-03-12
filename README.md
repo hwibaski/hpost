@@ -87,6 +87,3 @@ project/
 
 [Apidog](3xxfyj1gi8.apidog.io)
 
-```
-
-```
