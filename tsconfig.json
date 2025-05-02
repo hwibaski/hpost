@@ -25,7 +25,9 @@
       "@storage": ["libs/storage/src"],
       "@storage/*": ["libs/storage/src/*"],
       "@support": ["libs/support/src"],
-      "@support/*": ["libs/support/src/*"]
+      "@support/*": ["libs/support/src/*"],
+      "@usecase": ["libs/usecase/src"],
+      "@usecase/*": ["libs/usecase/src/*"]
     }
   }
 }

@@ -1,32 +1,23 @@
 import { createDraftAuthUserFixture } from '@core/auth/__test__/fixture';
 import { StubPasswordVerifier } from '@core/auth/__test__/stub';
-import { DraftAuthUser } from '@core/auth/domain/object/draft-auth-user.domain';
-import { AuthUserAppender } from '@core/auth/implement/auth-user-appender';
-import { AuthUserDuplicateChecker } from '@core/auth/implement/auth-user-duplicate-checker';
 import { AuthUserReader } from '@core/auth/implement/auth-user-reader';
-import { AuthUserValidator } from '@core/auth/implement/auth-user-validator';
-import { PasswordEncoder } from '@core/auth/implement/password-encoder';
 import { PasswordVerifier } from '@core/auth/implement/password-verifier';
 import { UserRepository } from '@core/auth/repository/user.repository';
-import { AuthUserUsecase } from '@core/auth/usecase/auth-user.usecase';
 import { JwtService } from '@nestjs/jwt';
 import { Test } from '@nestjs/testing';
 import { StorageModule } from '@storage/storage.module';
 import { ServiceException } from '@support/exception/service-exception';
+import { LoginUsecase } from 'libs/usecase/src/auth/usecase/login.usecase';
 
-describe('AuthUserUsecase', () => {
-  let authUserUsecase: AuthUserUsecase;
+describe('LoginUsecase', () => {
+  let loginUsecase: LoginUsecase;
   let authUserRepository: UserRepository;
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
       imports: [StorageModule],
       providers: [
-        AuthUserUsecase,
-        AuthUserAppender,
-        AuthUserValidator,
-        AuthUserDuplicateChecker,
-        PasswordEncoder,
+        LoginUsecase,
         AuthUserReader,
         {
           provide: PasswordVerifier,
@@ -41,30 +32,12 @@ describe('AuthUserUsecase', () => {
       ],
     }).compile();
 
-    authUserUsecase = module.get<AuthUserUsecase>(AuthUserUsecase);
+    loginUsecase = module.get<LoginUsecase>(LoginUsecase);
     authUserRepository = module.get<UserRepository>(UserRepository);
   });
 
   afterEach(async () => {
     await authUserRepository.deleteAll();
-  });
-
-  describe('signup', () => {
-    it('회원가입을 하고 ID를 반환해야 합니다', async () => {
-      // Given
-      const draftAuthUser = DraftAuthUser.of({
-        name: 'test-name',
-        email: 'test-email@email.com',
-        phoneNumber: '01099007278',
-        password: 'test-password1234',
-      });
-
-      // When
-      const result = await authUserUsecase.signup(draftAuthUser);
-
-      // Then
-      expect(result.id).toBeDefined();
-    });
   });
 
   describe('login', () => {
@@ -74,10 +47,10 @@ describe('AuthUserUsecase', () => {
       const password = 'password';
 
       // When & Then
-      await expect(authUserUsecase.login(email, password)).rejects.toThrow(
+      await expect(loginUsecase.execute(email, password)).rejects.toThrow(
         ServiceException,
       );
-      await expect(authUserUsecase.login(email, password)).rejects.toThrow(
+      await expect(loginUsecase.execute(email, password)).rejects.toThrow(
         '유효하지 않은 로그인 시도입니다.',
       );
     });
@@ -89,10 +62,10 @@ describe('AuthUserUsecase', () => {
 
       // When & Then
       await expect(
-        authUserUsecase.login(mockUser.email, 'invalid-password'),
+        loginUsecase.execute(mockUser.email, 'invalid-password'),
       ).rejects.toThrow(ServiceException);
       await expect(
-        authUserUsecase.login(mockUser.email, 'invalid-password'),
+        loginUsecase.execute(mockUser.email, 'invalid-password'),
       ).rejects.toThrow('유효하지 않은 로그인 시도입니다.');
     });
 
@@ -102,7 +75,7 @@ describe('AuthUserUsecase', () => {
       authUserRepository.save(mockUser);
 
       // When
-      const result = await authUserUsecase.login(
+      const result = await loginUsecase.execute(
         mockUser.email,
         mockUser.password,
       );

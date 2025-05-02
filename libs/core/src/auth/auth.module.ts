@@ -1,14 +1,13 @@
 import { AuthProviderReader } from '@core/auth/implement/auth-provider-reader';
+import { AuthUserAppender } from '@core/auth/implement/auth-user-appender';
 import { AuthUserDuplicateChecker } from '@core/auth/implement/auth-user-duplicate-checker';
 import { AuthUserReader } from '@core/auth/implement/auth-user-reader';
 import { AuthUserValidator } from '@core/auth/implement/auth-user-validator';
 import { PasswordEncoder } from '@core/auth/implement/password-encoder';
 import { PasswordVerifier } from '@core/auth/implement/password-verifier';
-import { AuthUserUsecase } from '@core/auth/usecase/auth-user.usecase';
 import { Global, Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { StorageModule } from '@storage/storage.module';
-import { AuthUserAppender } from './implement/auth-user-appender';
 
 @Global()
 @Module({
@@ -21,7 +20,6 @@ import { AuthUserAppender } from './implement/auth-user-appender';
     }),
   ],
   providers: [
-    AuthUserUsecase,
     AuthUserAppender,
     AuthUserValidator,
     AuthUserDuplicateChecker,
@@ -30,6 +28,14 @@ import { AuthUserAppender } from './implement/auth-user-appender';
     PasswordEncoder,
     PasswordVerifier,
   ],
-  exports: [AuthUserUsecase, AuthProviderReader],
+  exports: [
+    AuthUserAppender,
+    AuthUserValidator,
+    AuthUserDuplicateChecker,
+    AuthUserReader,
+    AuthProviderReader,
+    PasswordEncoder,
+    PasswordVerifier,
+  ],
 })
 export class AuthModule {}

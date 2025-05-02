@@ -1,9 +1,9 @@
 import { AuthController } from '@core-api/auth/controller/v1/auth.controller';
-import { AuthModule } from '@core/auth/auth.module';
 import { Module } from '@nestjs/common';
+import { UsecaseModule } from '@usecase/usecase.module';
 
 @Module({
-  imports: [AuthModule],
+  imports: [UsecaseModule],
   controllers: [AuthController],
 })
 export class AuthApiOutboundModule {}

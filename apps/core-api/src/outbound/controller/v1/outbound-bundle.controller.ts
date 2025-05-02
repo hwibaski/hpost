@@ -4,7 +4,6 @@ import { PlaceQuickOutboundBundleResponseDto } from '@core-api/outbound/controll
 import { QuickBundleResponseDto } from '@core-api/outbound/controller/v1/response/quick-bundle-response.dto';
 import { AuthProvider } from '@core/auth/domain/object/auth-provider.domain';
 import { OutboundBundleId } from '@core/outbound/domain/object/outbound-bundle.domain';
-import { OutboundBundleUsecase } from '@core/outbound/usecase/outbound-bundle.usecase';
 import { Pagination } from '@core/pagination/pagination';
 import { Sort } from '@core/pagination/sort';
 import {
@@ -20,10 +19,17 @@ import { AuthProviderDec } from '@support/decorator/auth-user.decorator';
 import { AuthGuard } from '@support/guard/jwt-auth.guard';
 import { ApiResponse } from '@support/response/api-response';
 import { ApiSliceResult } from '@support/response/api-slice-result';
+import { OutboundBundleFindUsecase } from '@usecase/outbound/usecase/outbound-bundle-find.usecase';
+import { OutboundBundleGetUsecase } from '@usecase/outbound/usecase/outbound-bundle-get.usecase';
+import { OutboundBundlePlaceOrderUsecase } from '@usecase/outbound/usecase/outbound-bundle-place-order.usecase';
 
 @Controller()
 export class OutboundBundleController {
-  constructor(private readonly outboundBundleUsecase: OutboundBundleUsecase) {}
+  constructor(
+    private readonly outboundBundleGetUsecase: OutboundBundleGetUsecase,
+    private readonly outboundBundleFindUsecase: OutboundBundleFindUsecase,
+    private readonly outboundBundlePlaceOrderUsecase: OutboundBundlePlaceOrderUsecase,
+  ) {}
 
   @UseGuards(AuthGuard)
   @Post('api/v1/outbound-bundles')
@@ -31,7 +37,7 @@ export class OutboundBundleController {
     @Body() body: PlaceQuickOutboundBundleRequestDto,
     @AuthProviderDec() provider: AuthProvider,
   ): Promise<ApiResponse<PlaceQuickOutboundBundleResponseDto>> {
-    const result = await this.outboundBundleUsecase.placeOrder(
+    const result = await this.outboundBundlePlaceOrderUsecase.execute(
       provider,
       body.toDraftQuickBundle(),
       body.toDraftQuickOutboundPackages(),
@@ -49,7 +55,7 @@ export class OutboundBundleController {
     @Param('id') id: string,
     @AuthProviderDec() provider: AuthProvider,
   ): Promise<ApiResponse<QuickBundleResponseDto>> {
-    const result = await this.outboundBundleUsecase.get(
+    const result = await this.outboundBundleGetUsecase.execute(
       provider,
       OutboundBundleId.of(id),
     );
@@ -75,7 +81,7 @@ export class OutboundBundleController {
       sort: Sort.of(sort, sortKey),
     });
 
-    const paginatedResult = await this.outboundBundleUsecase.find(
+    const paginatedResult = await this.outboundBundleFindUsecase.execute(
       provider,
       pagination,
     );

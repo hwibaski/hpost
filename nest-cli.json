@@ -19,6 +19,15 @@
         "tsConfigPath": "apps/core-api/tsconfig.app.json"
       }
     },
+    "usecase": {
+      "type": "library",
+      "root": "libs/usecase",
+      "entryFile": "index",
+      "sourceRoot": "libs/usecase/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/usecase/tsconfig.lib.json"
+      }
+    },
     "core": {
       "type": "library",
       "root": "libs/core",
