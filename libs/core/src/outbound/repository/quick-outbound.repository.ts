@@ -13,7 +13,7 @@ export class QuickOutboundPackageEntity {
   readonly outboundBundleId: string;
   readonly createdAt: Date;
   readonly updatedAt: Date;
-  readonly deletedAt: Date;
+  readonly deletedAt: Date | null;
   readonly number: string;
   readonly originName: string;
   readonly originDetailAddress: string;
@@ -76,7 +76,7 @@ export class QuickOutboundPackageEntity {
     outboundBundleId: string;
     createdAt: Date;
     updatedAt: Date;
-    deletedAt: Date;
+    deletedAt: Date | null;
     number: string;
     originName: string;
     originDetailAddress: string;

@@ -18,9 +18,15 @@ export class MemoryQuickOutboundPackageRepository
   ): Promise<QuickOutboundPackageEntity[]> {
     const quickOutboundPackages = draftQuickOutboundPackages.map(
       (draftQuickOutboundPackage) => {
+        const outboundBundleId = draftQuickOutboundPackage.bundleId?.value;
+
+        if (!outboundBundleId) {
+          throw new Error('Outbound bundle id is required');
+        }
+
         return new QuickOutboundPackageEntity({
           id: this.idCounter.toString(),
-          outboundBundleId: draftQuickOutboundPackage.bundleId.value,
+          outboundBundleId: outboundBundleId,
           createdAt: new Date(),
           updatedAt: new Date(),
           deletedAt: null,

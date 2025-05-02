@@ -37,9 +37,9 @@ describe('AuthUserReader', () => {
       const result = await authUserReader.findByEmail('test@gmail.com');
 
       // Then
-      expect(result.email).toBe(draftAuthUser.email);
-      expect(result.name).toBe(draftAuthUser.name);
-      expect(result.phoneNumber).toBe(draftAuthUser.phoneNumber);
+      expect(result?.email).toBe(draftAuthUser.email);
+      expect(result?.name).toBe(draftAuthUser.name);
+      expect(result?.phoneNumber).toBe(draftAuthUser.phoneNumber);
     });
 
     it('should return null when user not found by email', async () => {

@@ -165,16 +165,6 @@ export class PlaceQuickOutboundPackageRequestDto {
   @IsString()
   @IsNotEmpty()
   readonly clientRequestComment: string;
-
-  toDraftQuickOutboundPackage() {
-    return DraftQuickOutboundPackage.withoutBundleId({
-      origin: this.origin.toLocation(),
-      destination: this.destination.toLocation(),
-      item: this.item.toItem(),
-      vehicleOption: new VehicleOption(this.vehicleOption as any),
-      clientRequestComment: this.clientRequestComment,
-    });
-  }
 }
 
 export class PlaceQuickOutboundBundleRequestDto {
@@ -189,7 +179,7 @@ export class PlaceQuickOutboundBundleRequestDto {
 
   toDraftQuickOutboundPackages() {
     return this.packagesToOrder.map((dto) =>
-      DraftQuickOutboundPackage.withoutBundleId({
+      DraftQuickOutboundPackage.of({
         origin: dto.origin.toLocation(),
         destination: dto.destination.toLocation(),
         item: dto.item.toItem(),

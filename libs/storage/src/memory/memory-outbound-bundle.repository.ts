@@ -6,7 +6,6 @@ import {
   OutboundBundleRepository,
 } from '@core/outbound/repository/outbound-bundle.repository';
 import { Pagination } from '@core/pagination/pagination';
-import { Sort } from '@core/pagination/sort';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
@@ -40,7 +39,7 @@ export class MemoryOutboundBundleRepository
   async findByProviderAndId(
     provider: AuthProvider,
     outboundBundleId: OutboundBundleId,
-  ): Promise<OutboundBundleEntity> {
+  ): Promise<OutboundBundleEntity | null> {
     const outboundBundle = this.store.find(
       (outboundBundle) =>
         outboundBundle.id === outboundBundleId.value &&
@@ -61,11 +60,13 @@ export class MemoryOutboundBundleRepository
     const data = this.store
       .filter((outboundBundle) => outboundBundle.userId === provider.id.value)
       .sort((a, b) => {
-        const key = pagination.sort.sortKey;
+        const key = pagination.sort.sortKey as keyof OutboundBundleEntity;
+        const aValue = a[key] ?? '';
+        const bValue = b[key] ?? '';
         if (pagination.sort.isAsc()) {
-          return a[key] > b[key] ? 1 : -1;
+          return aValue > bValue ? 1 : -1;
         } else {
-          return a[key] < b[key] ? 1 : -1;
+          return aValue < bValue ? 1 : -1;
         }
       });
 

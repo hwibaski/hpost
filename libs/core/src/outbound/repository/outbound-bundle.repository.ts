@@ -3,12 +3,12 @@ import { Orderer } from '@core/outbound/domain/object/orderer.domain';
 import { OutboundBundleDetail } from '@core/outbound/domain/object/outbound-bundle-detail.domain';
 import { Channel } from '@core/outbound/domain/vo/channel';
 import { QuickOutboundPackageEntity } from '@core/outbound/repository/quick-outbound.repository';
+import { Pagination } from '@core/pagination/pagination';
 import { DraftOutboundBundle } from '../domain/object/draft-outbound-bundle.domain';
 import {
   OutboundBundle,
   OutboundBundleId,
 } from '../domain/object/outbound-bundle.domain';
-import { Pagination } from '@core/pagination/pagination';
 
 export class OutboundBundleEntity {
   readonly id: string;
@@ -16,7 +16,7 @@ export class OutboundBundleEntity {
   readonly number: string;
   readonly createdAt: Date;
   readonly updatedAt: Date;
-  readonly deletedAt: Date;
+  readonly deletedAt: Date | null;
   readonly category: string;
   readonly userId: string;
 
@@ -35,7 +35,7 @@ export class OutboundBundleEntity {
     number: string;
     createdAt: Date;
     updatedAt: Date;
-    deletedAt: Date;
+    deletedAt: Date | null;
     category: string;
     provider: AuthProvider;
   }) {
@@ -91,7 +91,7 @@ export abstract class OutboundBundleRepository {
   abstract findByProviderAndId(
     provider: AuthProvider,
     outboundBundleId: OutboundBundleId,
-  ): Promise<OutboundBundleEntity>;
+  ): Promise<OutboundBundleEntity | null>;
 
   abstract findByProvider(
     provider: AuthProvider,
