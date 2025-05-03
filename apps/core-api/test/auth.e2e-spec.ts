@@ -4,7 +4,7 @@ import { UserRepository } from '@core/auth/repository/user.repository';
 import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { MemoryStorageModule } from '@storage/memory/memory.module';
-import * as request from 'supertest';
+import request from 'supertest';
 
 describe('AuthController (e2e)', () => {
   let app: INestApplication;

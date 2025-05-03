@@ -8,7 +8,7 @@ import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { MemoryStorageModule } from '@storage/memory/memory.module';
 import { ApiResponse } from '@support/response/api-response';
-import * as request from 'supertest';
+import request from 'supertest';
 
 describe('PortalOutboundBundleController (e2e)', () => {
   let app: INestApplication;
