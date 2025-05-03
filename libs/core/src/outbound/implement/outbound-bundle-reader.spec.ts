@@ -18,7 +18,7 @@ import { OutboundBundleOrdererReader } from '@core/outbound/implement/oubound-bu
 import { OutboundBundleRepository } from '@core/outbound/repository/outbound-bundle.repository';
 import { QuickOutboundPackageRepository } from '@core/outbound/repository/quick-outbound.repository';
 import { Test, TestingModule } from '@nestjs/testing';
-import { StorageModule } from '@storage/storage.module';
+import { MemoryStorageModule } from '@storage/memory/memory.module';
 import { ServiceException } from '@support/exception/service-exception';
 import { OutboundBundleReader } from './outbound-bundle-reader';
 
@@ -30,7 +30,7 @@ describe('OutboundBundleReader', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [StorageModule],
+      imports: [MemoryStorageModule],
       providers: [OutboundBundleReader, OutboundBundleOrdererReader],
     }).compile();
 

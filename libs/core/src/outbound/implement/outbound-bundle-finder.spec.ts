@@ -7,15 +7,14 @@ import { OutboundBundleRepository } from '@core/outbound/repository/outbound-bun
 import { Pagination } from '@core/pagination/pagination';
 import { Sort } from '@core/pagination/sort';
 import { Test, TestingModule } from '@nestjs/testing';
-import { StorageModule } from '@storage/storage.module';
+import { MemoryStorageModule } from '@storage/memory/memory.module';
 
 describe('OutboundBundleFinder', () => {
   let finder: OutboundBundleFinder;
   let outboundBundleRepository: OutboundBundleRepository;
-
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [StorageModule],
+      imports: [MemoryStorageModule],
       providers: [OutboundBundleFinder],
     }).compile();
 

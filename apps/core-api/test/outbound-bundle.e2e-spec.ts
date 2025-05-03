@@ -2,11 +2,12 @@ import { setNestApp } from '@core-api/config/set-nest-app';
 import { CoreApiModule } from '@core-api/core-api.module';
 import { BundleResponseDto } from '@core-api/outbound/controller/v1/response/bundle-response.dto';
 import { PlaceQuickOutboundBundleResponseDto } from '@core-api/outbound/controller/v1/response/place-order-response.dto';
+import { UserRepository } from '@core/auth/repository/user.repository';
 import { OutboundBundleRepository } from '@core/outbound/repository/outbound-bundle.repository';
 import { QuickOutboundPackageRepository } from '@core/outbound/repository/quick-outbound.repository';
 import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { MemoryStorageModule } from '@storage/memory/memory.module';
+import { PrismaModule } from '@storage/prisma/prisma.module';
 import { ApiResponse } from '@support/response/api-response';
 import request from 'supertest';
 
@@ -14,6 +15,7 @@ describe('PortalOutboundBundleController (e2e)', () => {
   let app: INestApplication;
   let outboundBundleRepository: OutboundBundleRepository;
   let quickOutboundPackageRepository: QuickOutboundPackageRepository;
+  let userRepository: UserRepository;
 
   const testRequestBody = {
     packagesToOrder: [
@@ -54,7 +56,7 @@ describe('PortalOutboundBundleController (e2e)', () => {
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [CoreApiModule, MemoryStorageModule],
+      imports: [CoreApiModule, PrismaModule],
     }).compile();
 
     app = moduleFixture.createNestApplication();
@@ -68,14 +70,17 @@ describe('PortalOutboundBundleController (e2e)', () => {
       moduleFixture.get<QuickOutboundPackageRepository>(
         QuickOutboundPackageRepository,
       );
+    userRepository = moduleFixture.get<UserRepository>(UserRepository);
   });
 
   afterEach(async () => {
     await outboundBundleRepository.deleteAll();
     await quickOutboundPackageRepository.deleteAll();
+    await userRepository.deleteAll();
   });
 
   afterAll(async () => {
+    await userRepository.deleteAll();
     await app.close();
   });
 
@@ -335,7 +340,6 @@ describe('PortalOutboundBundleController (e2e)', () => {
 
       // then
       const response = result.body as ApiResponse<BundleResponseDto[]>;
-
       expect(response).toEqual({
         success: true,
         code: 'SUCCESS',

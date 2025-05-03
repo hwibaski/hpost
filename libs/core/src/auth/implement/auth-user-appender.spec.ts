@@ -6,7 +6,7 @@ import { AuthUserValidator } from '@core/auth/implement/auth-user-validator';
 import { PasswordEncoder } from '@core/auth/implement/password-encoder';
 import { UserRepository } from '@core/auth/repository/user.repository';
 import { Test } from '@nestjs/testing';
-import { StorageModule } from '@storage/storage.module';
+import { MemoryStorageModule } from '@storage/memory/memory.module';
 
 describe('AuthUserAppender', () => {
   let authUserAppender: AuthUserAppender;
@@ -14,7 +14,7 @@ describe('AuthUserAppender', () => {
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
-      imports: [StorageModule],
+      imports: [MemoryStorageModule],
       providers: [
         AuthUserAppender,
         AuthUserValidator,

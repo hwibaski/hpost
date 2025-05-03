@@ -29,6 +29,16 @@ export const createDraftAuthUserFixture = (override = {}) => {
   });
 };
 
+export const createAuthProviderFromUserFixture = (user: UserEntity) => {
+  return AuthProvider.of({
+    id: ProviderId.of(user.id),
+    email: user.email,
+    phoneNumber: user.phoneNumber,
+    name: user.name,
+    target: 'portal',
+  });
+};
+
 export const createAuthProviderFixture = () => {
   return AuthProvider.of({
     id: ProviderId.of('test-provider-id'),

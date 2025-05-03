@@ -8,7 +8,7 @@ import { OutboundBundleAppender } from '@core/outbound/implement/outbound-bundle
 import { OutboundBundleRepository } from '@core/outbound/repository/outbound-bundle.repository';
 import { QuickOutboundPackageRepository } from '@core/outbound/repository/quick-outbound.repository';
 import { Test, TestingModule } from '@nestjs/testing';
-import { StorageModule } from '@storage/storage.module';
+import { MemoryStorageModule } from '@storage/memory/memory.module';
 import { OutboundBundlePlaceOrderUsecase } from 'libs/usecase/src/outbound/usecase/outbound-bundle-place-order.usecase';
 
 describe('OutboundBundlePlaceOrderUsecase', () => {
@@ -19,7 +19,7 @@ describe('OutboundBundlePlaceOrderUsecase', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [StorageModule],
+      imports: [MemoryStorageModule],
       providers: [OutboundBundlePlaceOrderUsecase, OutboundBundleAppender],
     }).compile();
 

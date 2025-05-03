@@ -5,7 +5,7 @@ import { PasswordVerifier } from '@core/auth/implement/password-verifier';
 import { UserRepository } from '@core/auth/repository/user.repository';
 import { JwtService } from '@nestjs/jwt';
 import { Test } from '@nestjs/testing';
-import { StorageModule } from '@storage/storage.module';
+import { MemoryStorageModule } from '@storage/memory/memory.module';
 import { ServiceException } from '@support/exception/service-exception';
 import { LoginUsecase } from 'libs/usecase/src/auth/usecase/login.usecase';
 
@@ -15,7 +15,7 @@ describe('LoginUsecase', () => {
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
-      imports: [StorageModule],
+      imports: [MemoryStorageModule],
       providers: [
         LoginUsecase,
         AuthUserReader,

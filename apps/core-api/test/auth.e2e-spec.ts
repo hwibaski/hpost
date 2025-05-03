@@ -3,27 +3,27 @@ import { CoreApiModule } from '@core-api/core-api.module';
 import { UserRepository } from '@core/auth/repository/user.repository';
 import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { MemoryStorageModule } from '@storage/memory/memory.module';
+import { PrismaModule } from '@storage/prisma/prisma.module';
 import request from 'supertest';
 
 describe('AuthController (e2e)', () => {
   let app: INestApplication;
-  let authUserRepository: UserRepository;
+  let userRepository: UserRepository;
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [CoreApiModule, MemoryStorageModule],
+      imports: [CoreApiModule, PrismaModule],
     }).compile();
 
     app = moduleFixture.createNestApplication();
     setNestApp(app);
     await app.init();
 
-    authUserRepository = moduleFixture.get<UserRepository>(UserRepository);
+    userRepository = moduleFixture.get<UserRepository>(UserRepository);
   });
 
   afterEach(async () => {
-    await authUserRepository.deleteAll();
+    await userRepository.deleteAll();
   });
 
   afterAll(async () => {

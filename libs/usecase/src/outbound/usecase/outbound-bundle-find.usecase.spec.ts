@@ -15,7 +15,7 @@ import { QuickOutboundPackageRepository } from '@core/outbound/repository/quick-
 import { Pagination } from '@core/pagination/pagination';
 import { Sort } from '@core/pagination/sort';
 import { Test, TestingModule } from '@nestjs/testing';
-import { StorageModule } from '@storage/storage.module';
+import { MemoryStorageModule } from '@storage/memory/memory.module';
 import { OutboundBundleFindUsecase } from 'libs/usecase/src/outbound/usecase/outbound-bundle-find.usecase';
 
 describe('OutboundBundleFindUsecase', () => {
@@ -26,7 +26,7 @@ describe('OutboundBundleFindUsecase', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [StorageModule],
+      imports: [MemoryStorageModule],
       providers: [OutboundBundleFindUsecase, OutboundBundleFinder],
     }).compile();
 

@@ -4,12 +4,12 @@ export class Sort {
   readonly order: 'ASC' | 'DSC';
   readonly sortKey: string;
 
-  private constructor(order: 'ASC' | 'DSC', sortKey = 'createdAt') {
+  private constructor(order: 'ASC' | 'DSC' = 'ASC', sortKey = 'createdAt') {
     this.order = order;
     this.sortKey = sortKey;
   }
 
-  static of(order: 'ASC' | 'DSC', sortKey = 'createdAt') {
+  static of(order: 'ASC' | 'DSC' = 'ASC', sortKey = 'createdAt') {
     return new Sort(order, sortKey);
   }
 

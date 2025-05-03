@@ -7,14 +7,14 @@ import { OutboundBundleId } from '@core/outbound/domain/object/outbound-bundle.d
 import { Channel } from '@core/outbound/domain/vo/channel';
 import { OutboundBundleAppender } from '@core/outbound/implement/outbound-bundle-appender';
 import { Test, TestingModule } from '@nestjs/testing';
-import { StorageModule } from '@storage/storage.module';
+import { MemoryStorageModule } from '@storage/memory/memory.module';
 
 describe('OutboundBundleAppender', () => {
   let appender: OutboundBundleAppender;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [StorageModule],
+      imports: [MemoryStorageModule],
       providers: [OutboundBundleAppender],
     }).compile();
 

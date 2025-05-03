@@ -14,7 +14,7 @@ import { OutboundBundleReader } from '@core/outbound/implement/outbound-bundle-r
 import { OutboundBundleRepository } from '@core/outbound/repository/outbound-bundle.repository';
 import { QuickOutboundPackageRepository } from '@core/outbound/repository/quick-outbound.repository';
 import { Test, TestingModule } from '@nestjs/testing';
-import { StorageModule } from '@storage/storage.module';
+import { MemoryStorageModule } from '@storage/memory/memory.module';
 import { OutboundBundleGetUsecase } from 'libs/usecase/src/outbound/usecase/outbound-bundle-get.usecase';
 
 describe('OutboundBundleGetUsecase', () => {
@@ -25,7 +25,7 @@ describe('OutboundBundleGetUsecase', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [StorageModule],
+      imports: [MemoryStorageModule],
       providers: [
         OutboundBundleGetUsecase,
         OutboundBundleReader,
