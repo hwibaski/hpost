@@ -4,6 +4,8 @@ import { LoginResponseDto } from '@core-api/auth/controller/v1/response/login-re
 import { MeResponseDto } from '@core-api/auth/controller/v1/response/me-response.dto';
 import { SignupResponseDto } from '@core-api/auth/controller/v1/response/signup-response.dto';
 import { AuthProvider } from '@core/auth/domain/object/auth-provider.domain';
+import { LoginUsecase } from '@core/auth/usecase/login.usecase';
+import { SignupUsecase } from '@core/auth/usecase/signup.usecase';
 import {
   Body,
   Controller,
@@ -16,8 +18,6 @@ import {
 import { AuthProviderDec } from '@support/decorator/auth-user.decorator';
 import { AuthGuard } from '@support/guard/jwt-auth.guard';
 import { ApiResponse } from '@support/response/api-response';
-import { LoginUsecase } from '@usecase/auth/usecase/login.usecase';
-import { SignupUsecase } from '@usecase/auth/usecase/signup.usecase';
 
 @Controller()
 export class AuthController {

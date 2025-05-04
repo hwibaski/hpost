@@ -3,11 +3,11 @@ import { StubPasswordVerifier } from '@core/auth/__test__/stub';
 import { AuthUserReader } from '@core/auth/implement/auth-user-reader';
 import { PasswordVerifier } from '@core/auth/implement/password-verifier';
 import { UserRepository } from '@core/auth/repository/user.repository';
+import { LoginUsecase } from '@core/auth/usecase/login.usecase';
 import { JwtService } from '@nestjs/jwt';
 import { Test } from '@nestjs/testing';
 import { MemoryStorageModule } from '@storage/memory/memory.module';
 import { ServiceException } from '@support/exception/service-exception';
-import { LoginUsecase } from 'libs/usecase/src/auth/usecase/login.usecase';
 
 describe('LoginUsecase', () => {
   let loginUsecase: LoginUsecase;

@@ -7,9 +7,9 @@ import {
 import { OutboundBundleAppender } from '@core/outbound/implement/outbound-bundle-appender';
 import { OutboundBundleRepository } from '@core/outbound/repository/outbound-bundle.repository';
 import { QuickOutboundPackageRepository } from '@core/outbound/repository/quick-outbound.repository';
+import { OutboundBundlePlaceOrderUsecase } from '@core/outbound/usecase/outbound-bundle-place-order.usecase';
 import { Test, TestingModule } from '@nestjs/testing';
 import { MemoryStorageModule } from '@storage/memory/memory.module';
-import { OutboundBundlePlaceOrderUsecase } from 'libs/usecase/src/outbound/usecase/outbound-bundle-place-order.usecase';
 
 describe('OutboundBundlePlaceOrderUsecase', () => {
   let usecase: OutboundBundlePlaceOrderUsecase;

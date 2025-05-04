@@ -12,11 +12,11 @@ import { Channel } from '@core/outbound/domain/vo/channel';
 import { OutboundBundleFinder } from '@core/outbound/implement/outbound-bundle-finder';
 import { OutboundBundleRepository } from '@core/outbound/repository/outbound-bundle.repository';
 import { QuickOutboundPackageRepository } from '@core/outbound/repository/quick-outbound.repository';
+import { OutboundBundleFindUsecase } from '@core/outbound/usecase/outbound-bundle-find.usecase';
 import { Pagination } from '@core/pagination/pagination';
 import { Sort } from '@core/pagination/sort';
 import { Test, TestingModule } from '@nestjs/testing';
 import { MemoryStorageModule } from '@storage/memory/memory.module';
-import { OutboundBundleFindUsecase } from 'libs/usecase/src/outbound/usecase/outbound-bundle-find.usecase';
 
 describe('OutboundBundleFindUsecase', () => {
   let usecase: OutboundBundleFindUsecase;

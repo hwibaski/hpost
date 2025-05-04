@@ -4,9 +4,9 @@ import { AuthUserDuplicateChecker } from '@core/auth/implement/auth-user-duplica
 import { AuthUserValidator } from '@core/auth/implement/auth-user-validator';
 import { PasswordEncoder } from '@core/auth/implement/password-encoder';
 import { UserRepository } from '@core/auth/repository/user.repository';
+import { SignupUsecase } from '@core/auth/usecase/signup.usecase';
 import { Test } from '@nestjs/testing';
 import { StorageModule } from '@storage/storage.module';
-import { SignupUsecase } from 'libs/usecase/src/auth/usecase/signup.usecase';
 
 describe('SignupUsecase', () => {
   let signupUsecase: SignupUsecase;

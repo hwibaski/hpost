@@ -13,9 +13,9 @@ import { OutboundBundleOrdererReader } from '@core/outbound/implement/oubound-bu
 import { OutboundBundleReader } from '@core/outbound/implement/outbound-bundle-reader';
 import { OutboundBundleRepository } from '@core/outbound/repository/outbound-bundle.repository';
 import { QuickOutboundPackageRepository } from '@core/outbound/repository/quick-outbound.repository';
+import { OutboundBundleGetUsecase } from '@core/outbound/usecase/outbound-bundle-get.usecase';
 import { Test, TestingModule } from '@nestjs/testing';
 import { MemoryStorageModule } from '@storage/memory/memory.module';
-import { OutboundBundleGetUsecase } from 'libs/usecase/src/outbound/usecase/outbound-bundle-get.usecase';
 
 describe('OutboundBundleGetUsecase', () => {
   let usecase: OutboundBundleGetUsecase;
