@@ -14,13 +14,13 @@ import { Location } from '@core/outbound/domain/vo/location';
 import { VehicleOption } from '@core/outbound/domain/vo/vehicle-option';
 
 export const createDraftOutboundBundleFixture = () => {
-  return DraftOutboundBundle.of();
+  return DraftOutboundBundle.create();
 };
 
 export const createTestOutboundBundleFixture = () => {
   return OutboundBundle.of({
-    id: OutboundBundleId.of('test-bundle-id'),
-    channel: Channel.of(Channel.PORTAL),
+    id: OutboundBundleId.from('test-bundle-id'),
+    channel: Channel.from(Channel.PORTAL),
     number: 'test-bundle-number',
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -38,7 +38,7 @@ export const createDraftQuickOutboundPackageFixture = (
     item: createTestItemFixture(),
     vehicleOption: createVehicleOptionFixtrue(),
     clientRequestComment: 'test',
-    bundleId: OutboundBundleId.of('test-bundle-id'),
+    bundleId: OutboundBundleId.from('test-bundle-id'),
   });
 
   override && Object.assign(mock, override);
@@ -48,14 +48,14 @@ export const createDraftQuickOutboundPackageFixture = (
 
 export const createTestQuickOutboundPackageFixture = () => {
   return QuickOutboundPackage.of({
-    id: QuickOutboundPackageId.of('test-package-id'),
+    id: QuickOutboundPackageId.from('test-package-id'),
     number: 'test-package-number',
     origin: createTestOriginFixture(),
     destination: createTestDestinationFixture(),
     item: createTestItemFixture(),
-    vehicleOption: VehicleOption.of(VehicleOption.BIKE),
+    vehicleOption: VehicleOption.from(VehicleOption.BIKE),
     clientRequestComment: 'test',
-    bundleId: OutboundBundleId.of('test-bundle-id'),
+    bundleId: OutboundBundleId.from('test-bundle-id'),
     createdAt: new Date(),
     updatedAt: new Date(),
     deletedAt: null,

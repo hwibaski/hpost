@@ -18,7 +18,7 @@ export class VehicleOption {
     }
   }
 
-  static of(type: typeof VehicleOption.BIKE | typeof VehicleOption.CAR) {
+  static from(type: typeof VehicleOption.BIKE | typeof VehicleOption.CAR) {
     return new VehicleOption(type);
   }
 }

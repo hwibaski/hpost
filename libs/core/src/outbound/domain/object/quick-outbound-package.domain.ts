@@ -6,7 +6,7 @@ import { VehicleOption } from '@core/outbound/domain/vo/vehicle-option';
 export class QuickOutboundPackageId {
   private constructor(readonly value: string) {}
 
-  static of(value: string) {
+  static from(value: string) {
     return new QuickOutboundPackageId(value);
   }
 }

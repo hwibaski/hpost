@@ -17,11 +17,11 @@ export class BundleResponseDto {
     this.createdAt = outboundBundle.createdAt;
   }
 
-  static of(outboundBundle: OutboundBundle): BundleResponseDto {
+  static from(outboundBundle: OutboundBundle): BundleResponseDto {
     return new BundleResponseDto(outboundBundle);
   }
 
-  static ofList(outboundBundles: OutboundBundle[]): BundleResponseDto[] {
-    return outboundBundles.map(BundleResponseDto.of);
+  static fromList(outboundBundles: OutboundBundle[]): BundleResponseDto[] {
+    return outboundBundles.map(BundleResponseDto.from);
   }
 }

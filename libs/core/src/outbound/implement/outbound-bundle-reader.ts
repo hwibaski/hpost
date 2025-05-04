@@ -33,7 +33,7 @@ export class OutboundBundleReader {
       );
 
     const orderer = await this.outboundBundleOrdererReader.read(
-      OrdererId.of(outboundBundle.userId),
+      OrdererId.from(outboundBundle.userId),
     );
 
     const outboundBundleDetail = outboundBundle.toOutboundBundleDetail(

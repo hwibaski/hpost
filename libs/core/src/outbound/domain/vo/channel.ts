@@ -7,7 +7,7 @@ export class Channel {
     this.validateValue(value);
   }
 
-  static of(value: typeof Channel.PORTAL) {
+  static from(value: typeof Channel.PORTAL) {
     return new Channel(value);
   }
 

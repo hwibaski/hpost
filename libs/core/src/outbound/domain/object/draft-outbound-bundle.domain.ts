@@ -10,7 +10,7 @@ export class DraftOutboundBundle {
   readonly category: 'quick';
 
   private constructor() {
-    this.channel = Channel.of(Channel.PORTAL);
+    this.channel = Channel.from(Channel.PORTAL);
     this.number = randomUUID();
     this.createdAt = new Date();
     this.updatedAt = new Date();
@@ -18,7 +18,7 @@ export class DraftOutboundBundle {
     this.category = 'quick';
   }
 
-  static of(): DraftOutboundBundle {
+  static create(): DraftOutboundBundle {
     return new DraftOutboundBundle();
   }
 }

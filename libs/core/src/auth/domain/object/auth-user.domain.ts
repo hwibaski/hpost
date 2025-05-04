@@ -1,7 +1,7 @@
 export class AuthUserId {
   private constructor(readonly value: string) {}
 
-  static of(value: string) {
+  static from(value: string) {
     return new AuthUserId(value);
   }
 }

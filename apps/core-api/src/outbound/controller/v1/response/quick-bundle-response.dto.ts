@@ -45,7 +45,7 @@ export class QuickBundleResponseDto {
     );
   }
 
-  static of(
+  static from(
     outboundBundleDetail: OutboundBundleDetail,
   ): QuickBundleResponseDto {
     return new QuickBundleResponseDto(outboundBundleDetail);

@@ -13,7 +13,7 @@ export class PlaceQuickOutboundBundleResponseDto {
     this.id = outboundBundle.id.value;
   }
 
-  static of(
+  static from(
     outboundBundle: OutboundBundle,
   ): PlaceQuickOutboundBundleResponseDto {
     return new PlaceQuickOutboundBundleResponseDto(outboundBundle);

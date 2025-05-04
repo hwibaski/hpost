@@ -174,7 +174,7 @@ export class PlaceQuickOutboundBundleRequestDto {
   readonly packagesToOrder: PlaceQuickOutboundPackageRequestDto[];
 
   toDraftQuickBundle() {
-    return DraftOutboundBundle.of();
+    return DraftOutboundBundle.create();
   }
 
   toDraftQuickOutboundPackages() {

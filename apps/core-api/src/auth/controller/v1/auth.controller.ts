@@ -34,7 +34,7 @@ export class AuthController {
 
     return ApiResponse.success(
       'AuthUser created successfully',
-      SignupResponseDto.of(result),
+      SignupResponseDto.from(result),
     );
   }
 
@@ -45,7 +45,10 @@ export class AuthController {
   ): Promise<ApiResponse<LoginResponseDto>> {
     const result = await this.loginUsecase.execute(body.email, body.password);
 
-    return ApiResponse.success('Login successful', LoginResponseDto.of(result));
+    return ApiResponse.success(
+      'Login successful',
+      LoginResponseDto.from(result),
+    );
   }
 
   @UseGuards(AuthGuard)
@@ -53,6 +56,9 @@ export class AuthController {
   async me(
     @AuthProviderDec() authProvider: AuthProvider,
   ): Promise<ApiResponse<MeResponseDto>> {
-    return ApiResponse.success('Me successful', MeResponseDto.of(authProvider));
+    return ApiResponse.success(
+      'Me successful',
+      MeResponseDto.from(authProvider),
+    );
   }
 }

@@ -62,7 +62,7 @@ describe('OutboundBundleReader', () => {
         }),
       );
       const authProvider = AuthProvider.of({
-        id: ProviderId.of(savedUser.id),
+        id: ProviderId.from(savedUser.id),
         email: savedUser.email,
         name: savedUser.name,
         phoneNumber: savedUser.phoneNumber,
@@ -76,7 +76,7 @@ describe('OutboundBundleReader', () => {
       // when
       const result = await reader.read(
         authProvider,
-        OutboundBundleId.of(bundle.id),
+        OutboundBundleId.from(bundle.id),
       );
 
       // then
@@ -103,14 +103,14 @@ describe('OutboundBundleReader', () => {
       );
       await quickOutboundPackageRepository.saveMany([
         createDraftQuickOutboundPackageFixture({
-          bundleId: OutboundBundleId.of(bundle.id),
+          bundleId: OutboundBundleId.from(bundle.id),
         }),
       ]);
 
       // when
       const result = await reader.read(
         authProvider,
-        OutboundBundleId.of(bundle.id),
+        OutboundBundleId.from(bundle.id),
       );
 
       // then
@@ -123,7 +123,7 @@ describe('OutboundBundleReader', () => {
       // given
       const savedUser = await userRepository.save(createDraftAuthUserFixture());
       const authProvider = createAuthProviderFixtureFromUser(savedUser);
-      const bundleId = OutboundBundleId.of('test-bundle-id');
+      const bundleId = OutboundBundleId.from('test-bundle-id');
       // when & then
       await expect(reader.read(authProvider, bundleId)).rejects.toThrow(
         ServiceException,
@@ -134,7 +134,7 @@ describe('OutboundBundleReader', () => {
       // given
       const savedUser = await userRepository.save(createDraftAuthUserFixture());
       const authProvider = createAuthProviderFixtureFromUser(savedUser);
-      const bundleId = OutboundBundleId.of('test-bundle-id');
+      const bundleId = OutboundBundleId.from('test-bundle-id');
 
       // when & then
       await expect(reader.read(authProvider, bundleId)).rejects.toThrow(

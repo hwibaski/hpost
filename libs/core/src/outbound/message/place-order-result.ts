@@ -7,7 +7,7 @@ export class PlaceOrderResult {
     this.id = id;
   }
 
-  static of(id: OutboundBundleId) {
+  static from(id: OutboundBundleId) {
     return new PlaceOrderResult(id);
   }
 }

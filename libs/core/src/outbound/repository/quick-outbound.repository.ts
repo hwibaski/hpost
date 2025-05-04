@@ -137,7 +137,7 @@ export class QuickOutboundPackageEntity {
 
   toQuickOutboundPackage(): QuickOutboundPackage {
     return QuickOutboundPackage.of({
-      id: QuickOutboundPackageId.of(this.id),
+      id: QuickOutboundPackageId.from(this.id),
       number: this.number,
       origin: Location.of({
         name: this.originName,
@@ -167,13 +167,13 @@ export class QuickOutboundPackageEntity {
         price: this.itemPrice,
         weight: this.itemWeight,
       }),
-      vehicleOption: VehicleOption.of(
+      vehicleOption: VehicleOption.from(
         this.vehicleOption as
           | typeof VehicleOption.BIKE
           | typeof VehicleOption.CAR,
       ),
       clientRequestComment: this.clientRequestComment,
-      bundleId: OutboundBundleId.of(this.outboundBundleId),
+      bundleId: OutboundBundleId.from(this.outboundBundleId),
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
       deletedAt: this.deletedAt,

@@ -21,7 +21,7 @@ describe('PrismaQuickOutboundPackageRepository (integration)', () => {
     repository = module.get(PrismaQuickOutboundPackageRepository);
 
     await prisma.$connect();
-    bundleId = OutboundBundleId.of('test-bundle-id');
+    bundleId = OutboundBundleId.from('test-bundle-id');
   });
 
   afterAll(async () => {
@@ -63,7 +63,7 @@ describe('PrismaQuickOutboundPackageRepository (integration)', () => {
         price: 10000,
         weight: 1,
       }),
-      vehicleOption: VehicleOption.of(VehicleOption.BIKE),
+      vehicleOption: VehicleOption.from(VehicleOption.BIKE),
       clientRequestComment: '빠른 배송 부탁드립니다',
       bundleId,
     });

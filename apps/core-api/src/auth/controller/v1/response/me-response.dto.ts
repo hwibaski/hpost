@@ -13,7 +13,7 @@ export class MeResponseDto {
     this.phoneNumber = authUser.phoneNumber;
   }
 
-  static of(authUser: AuthProvider) {
+  static from(authUser: AuthProvider) {
     return new MeResponseDto(authUser);
   }
 }

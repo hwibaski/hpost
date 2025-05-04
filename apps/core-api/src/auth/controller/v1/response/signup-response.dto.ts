@@ -7,7 +7,7 @@ export class SignupResponseDto {
 
   private constructor(readonly id: string) {}
 
-  static of(authUser: AuthUser): SignupResponseDto {
+  static from(authUser: AuthUser): SignupResponseDto {
     return new SignupResponseDto(authUser.id.value);
   }
 }

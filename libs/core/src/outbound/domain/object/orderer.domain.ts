@@ -1,7 +1,7 @@
 export class OrdererId {
   private constructor(readonly value: string) {}
 
-  static of(value: string): OrdererId {
+  static from(value: string): OrdererId {
     return new OrdererId(value);
   }
 }

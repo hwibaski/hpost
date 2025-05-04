@@ -3,7 +3,7 @@ import { Channel } from '@core/outbound/domain/vo/channel';
 export class OutboundBundleId {
   private constructor(readonly value: string) {}
 
-  static of(value: string): OutboundBundleId {
+  static from(value: string): OutboundBundleId {
     return new OutboundBundleId(value);
   }
 }

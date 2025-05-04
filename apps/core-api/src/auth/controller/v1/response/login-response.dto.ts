@@ -5,7 +5,7 @@ export class LoginResponseDto {
     this.accessToken = accessToken;
   }
 
-  static of(accessToken: string) {
+  static from(accessToken: string) {
     return new LoginResponseDto(accessToken);
   }
 }

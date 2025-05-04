@@ -26,7 +26,7 @@ describe('PrismaOutboundBundleRepository (integration)', () => {
     await prisma.$connect();
 
     provider = AuthProvider.of({
-      id: ProviderId.of('test-provider-id'),
+      id: ProviderId.from('test-provider-id'),
       name: '홍길동',
       email: 'test@test.com',
       phoneNumber: '01012345678',
@@ -44,14 +44,14 @@ describe('PrismaOutboundBundleRepository (integration)', () => {
   });
 
   it('should save and find by id', async () => {
-    const draft = DraftOutboundBundle.of();
+    const draft = DraftOutboundBundle.create();
     const saved = await repository.save(provider, draft);
     expect(saved.channel).toBe('PORTAL');
     expect(saved.userId).toBe(provider.id.value);
 
     const found = await repository.findByProviderAndId(
       provider,
-      OutboundBundleId.of(saved.id),
+      OutboundBundleId.from(saved.id),
     );
     expect(found).not.toBeNull();
     expect(found?.id).toBe(saved.id);
@@ -60,7 +60,7 @@ describe('PrismaOutboundBundleRepository (integration)', () => {
   it('should return null if not found', async () => {
     const found = await repository.findByProviderAndId(
       provider,
-      OutboundBundleId.of('non-existent-id'),
+      OutboundBundleId.from('non-existent-id'),
     );
     expect(found).toBeNull();
   });
@@ -68,7 +68,7 @@ describe('PrismaOutboundBundleRepository (integration)', () => {
   it('should find by provider with pagination', async () => {
     // 여러 개 저장
     for (let i = 0; i < 3; i++) {
-      await repository.save(provider, DraftOutboundBundle.of());
+      await repository.save(provider, DraftOutboundBundle.create());
     }
     const pagination = Pagination.of({
       limit: 2,

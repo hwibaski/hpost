@@ -1,7 +1,7 @@
 export class ProviderId {
   private constructor(readonly value: string) {}
 
-  static of(value: string) {
+  static from(value: string) {
     return new ProviderId(value);
   }
 }

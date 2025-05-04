@@ -83,7 +83,7 @@ describe('OutboundBundleFindUsecase', () => {
     );
     await quickOutboundPackageRepository.saveMany([
       createDraftQuickOutboundPackageFixture({
-        bundleId: OutboundBundleId.of(bundle.id),
+        bundleId: OutboundBundleId.from(bundle.id),
       }),
     ]);
 

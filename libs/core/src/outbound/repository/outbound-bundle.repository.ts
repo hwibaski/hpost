@@ -51,8 +51,8 @@ export class OutboundBundleEntity {
 
   toOutboundBundle(): OutboundBundle {
     return OutboundBundle.of({
-      id: OutboundBundleId.of(this.id),
-      channel: Channel.of(this.channel as typeof Channel.PORTAL),
+      id: OutboundBundleId.from(this.id),
+      channel: Channel.from(this.channel as typeof Channel.PORTAL),
       number: this.number,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
@@ -66,8 +66,8 @@ export class OutboundBundleEntity {
     orderer: Orderer,
   ): OutboundBundleDetail {
     return OutboundBundleDetail.of({
-      id: OutboundBundleId.of(this.id),
-      channel: Channel.of(this.channel as typeof Channel.PORTAL),
+      id: OutboundBundleId.from(this.id),
+      channel: Channel.from(this.channel as typeof Channel.PORTAL),
       number: this.number,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,

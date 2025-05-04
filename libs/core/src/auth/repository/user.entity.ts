@@ -44,7 +44,7 @@ export class UserEntity {
 
   toAuthUser(): AuthUser {
     return AuthUser.of({
-      id: AuthUserId.of(this.id),
+      id: AuthUserId.from(this.id),
       name: this.name,
       email: this.email,
       phoneNumber: this.phoneNumber,
@@ -54,7 +54,7 @@ export class UserEntity {
 
   toOrderer() {
     return Orderer.of({
-      id: OrdererId.of(this.id),
+      id: OrdererId.from(this.id),
       name: this.name,
       email: this.email,
       phoneNumber: this.phoneNumber,
@@ -63,7 +63,7 @@ export class UserEntity {
 
   toAuthProvider() {
     return AuthProvider.of({
-      id: ProviderId.of(this.id),
+      id: ProviderId.from(this.id),
       email: this.email,
       name: this.name,
       phoneNumber: this.phoneNumber,

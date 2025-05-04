@@ -4,6 +4,16 @@ import { Location } from '@core/outbound/domain/vo/location';
 import { VehicleOption } from '@core/outbound/domain/vo/vehicle-option';
 import { randomUUID } from 'crypto';
 
+type DraftQuickOutboundPackageProps = Pick<
+  DraftQuickOutboundPackage,
+  | 'origin'
+  | 'destination'
+  | 'item'
+  | 'vehicleOption'
+  | 'clientRequestComment'
+  | 'bundleId'
+>;
+
 export class DraftQuickOutboundPackage {
   readonly number: string;
   readonly origin: Location;
@@ -20,15 +30,7 @@ export class DraftQuickOutboundPackage {
     vehicleOption,
     clientRequestComment,
     bundleId,
-  }: Pick<
-    DraftQuickOutboundPackage,
-    | 'origin'
-    | 'destination'
-    | 'item'
-    | 'vehicleOption'
-    | 'clientRequestComment'
-    | 'bundleId'
-  >) {
+  }: DraftQuickOutboundPackageProps) {
     this.number = randomUUID();
     this.origin = origin;
     this.destination = destination;
@@ -49,15 +51,7 @@ export class DraftQuickOutboundPackage {
     vehicleOption,
     clientRequestComment,
     bundleId,
-  }: Pick<
-    DraftQuickOutboundPackage,
-    | 'origin'
-    | 'destination'
-    | 'item'
-    | 'vehicleOption'
-    | 'clientRequestComment'
-    | 'bundleId'
-  >) {
+  }: DraftQuickOutboundPackageProps) {
     return new DraftQuickOutboundPackage({
       origin,
       destination,

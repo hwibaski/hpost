@@ -57,7 +57,7 @@ describe('OutboundBundleGetUsecase', () => {
       // when
       const result = await usecase.execute(
         authProvider,
-        OutboundBundleId.of(bundle.id),
+        OutboundBundleId.from(bundle.id),
       );
 
       // then
@@ -82,7 +82,7 @@ describe('OutboundBundleGetUsecase', () => {
     );
     await quickOutboundPackageRepository.saveMany([
       createDraftQuickOutboundPackageFixture({
-        bundleId: OutboundBundleId.of(bundle.id),
+        bundleId: OutboundBundleId.from(bundle.id),
       }),
     ]);
 

@@ -11,7 +11,7 @@ import { UserEntity } from '@core/auth/repository/user.entity';
 
 export const createAuthUserFixture = () => {
   return AuthUser.of({
-    id: AuthUserId.of('test-client-id'),
+    id: AuthUserId.from('test-client-id'),
     name: 'test-name',
     email: 'test@example.com',
     phoneNumber: '01012341234',
@@ -31,7 +31,7 @@ export const createDraftAuthUserFixture = (override = {}) => {
 
 export const createAuthProviderFromUserFixture = (user: UserEntity) => {
   return AuthProvider.of({
-    id: ProviderId.of(user.id),
+    id: ProviderId.from(user.id),
     email: user.email,
     phoneNumber: user.phoneNumber,
     name: user.name,
@@ -41,7 +41,7 @@ export const createAuthProviderFromUserFixture = (user: UserEntity) => {
 
 export const createAuthProviderFixture = () => {
   return AuthProvider.of({
-    id: ProviderId.of('test-provider-id'),
+    id: ProviderId.from('test-provider-id'),
     email: 'test@example.com',
     phoneNumber: '01012341234',
     name: 'test-name',
@@ -51,7 +51,7 @@ export const createAuthProviderFixture = () => {
 
 export const createAuthProviderFixtureFromUser = (user: UserEntity) => {
   return AuthProvider.of({
-    id: ProviderId.of(user.id),
+    id: ProviderId.from(user.id),
     email: user.email,
     phoneNumber: user.phoneNumber,
     name: user.name,

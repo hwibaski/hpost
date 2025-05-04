@@ -45,7 +45,7 @@ export class OutboundBundleController {
 
     return ApiResponse.success(
       'Outbound bundle created successfully',
-      PlaceQuickOutboundBundleResponseDto.of(result),
+      PlaceQuickOutboundBundleResponseDto.from(result),
     );
   }
 
@@ -57,12 +57,12 @@ export class OutboundBundleController {
   ): Promise<ApiResponse<QuickBundleResponseDto>> {
     const result = await this.outboundBundleGetUsecase.execute(
       provider,
-      OutboundBundleId.of(id),
+      OutboundBundleId.from(id),
     );
 
     return ApiResponse.success(
       'Outbound bundle found successfully',
-      QuickBundleResponseDto.of(result),
+      QuickBundleResponseDto.from(result),
     );
   }
 
@@ -90,7 +90,7 @@ export class OutboundBundleController {
       'Outbound bundle list found successfully',
       ApiSliceResult.of(
         paginatedResult.totalCount,
-        BundleResponseDto.ofList(paginatedResult.data),
+        BundleResponseDto.fromList(paginatedResult.data),
         limit,
         offset,
       ),

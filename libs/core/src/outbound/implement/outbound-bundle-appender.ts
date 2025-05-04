@@ -25,7 +25,7 @@ export class OutboundBundleAppender {
 
     draftQuickOutboundPackages.forEach((draftQuickOutboundPackage) => {
       draftQuickOutboundPackage.setBundleId(
-        OutboundBundleId.of(savedOutboundBundleEntity.id),
+        OutboundBundleId.from(savedOutboundBundleEntity.id),
       );
     });
 
