@@ -163,7 +163,6 @@ export class PlaceQuickOutboundPackageRequestDto {
   readonly vehicleOption: string;
 
   @IsString()
-  @IsNotEmpty()
   readonly clientRequestComment: string;
 }
 
