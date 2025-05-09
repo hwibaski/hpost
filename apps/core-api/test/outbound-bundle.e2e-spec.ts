@@ -4,6 +4,7 @@ import { BundleResponseDto } from '@core-api/outbound/controller/v1/response/bun
 import { PlaceQuickOutboundBundleResponseDto } from '@core-api/outbound/controller/v1/response/place-order-response.dto';
 import { UserRepository } from '@core/auth/repository/user.repository';
 import { OutboundBundleRepository } from '@core/outbound/repository/outbound-bundle.repository';
+import { QuickChargeRepository } from '@core/outbound/repository/quick-charge.repository';
 import { QuickOutboundPackageRepository } from '@core/outbound/repository/quick-outbound.repository';
 import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
@@ -16,6 +17,7 @@ describe('PortalOutboundBundleController (e2e)', () => {
   let outboundBundleRepository: OutboundBundleRepository;
   let quickOutboundPackageRepository: QuickOutboundPackageRepository;
   let userRepository: UserRepository;
+  let quickChargeRepository: QuickChargeRepository;
 
   const testRequestBody = {
     packagesToOrder: [
@@ -70,6 +72,9 @@ describe('PortalOutboundBundleController (e2e)', () => {
       moduleFixture.get<QuickOutboundPackageRepository>(
         QuickOutboundPackageRepository,
       );
+    quickChargeRepository = moduleFixture.get<QuickChargeRepository>(
+      QuickChargeRepository,
+    );
     userRepository = moduleFixture.get<UserRepository>(UserRepository);
   });
 
@@ -77,6 +82,7 @@ describe('PortalOutboundBundleController (e2e)', () => {
     await outboundBundleRepository.deleteAll();
     await quickOutboundPackageRepository.deleteAll();
     await userRepository.deleteAll();
+    await quickChargeRepository.deleteAll();
   });
 
   afterAll(async () => {
@@ -353,6 +359,99 @@ describe('PortalOutboundBundleController (e2e)', () => {
         },
       });
       expect(result.statusCode).toBe(200);
+    });
+  });
+
+  describe('/api/v1/outbound-bundles/quick-charges (POST)', () => {
+    it('요금 계산 성공', async () => {
+      // given
+      const requestBody = {
+        origin: {
+          latitude: 37.5665,
+          longitude: 126.978,
+        },
+        destination: {
+          latitude: 37.5112,
+          longitude: 127.0981,
+        },
+        weight: 10,
+      };
+
+      // when
+      const result = await request(app.getHttpServer())
+        .post('/api/v1/outbound-bundles/quick-charges')
+        .send(requestBody);
+
+      // then
+      const response = result.body as ApiResponse<any>;
+      expect(response).toEqual({
+        success: true,
+        code: 'SUCCESS',
+        errors: [],
+        message: 'Quick charge calculated successfully',
+        data: {
+          id: expect.any(String),
+          baseAmount: expect.any(Number),
+          discountAmount: 0,
+          totalAmount: expect.any(Number),
+          expiredAt: null,
+        },
+      });
+      expect(result.statusCode).toBe(201);
+    });
+
+    it('잘못된 위치 정보로 요청 시 실패', async () => {
+      // given
+      const invalidRequest = {
+        origin: {
+          latitude: 200, // 잘못된 위도
+          longitude: 126.978,
+        },
+        destination: {
+          latitude: 37.5112,
+          longitude: 127.0981,
+        },
+        weight: 10,
+      };
+
+      // when
+      const result = await request(app.getHttpServer())
+        .post('/api/v1/outbound-bundles/quick-charges')
+        .send(invalidRequest);
+
+      // then
+      const response = result.body as ApiResponse<any>;
+      expect(response.success).toBe(false);
+      expect(response.code).toBe('UNPROCESSABLE_ENTITY');
+      expect(result.statusCode).toBe(422);
+    });
+
+    it('잘못된 무게 정보로 요청 시 실패', async () => {
+      // given
+      const authToken = await getAccessToken();
+      const invalidRequest = {
+        origin: {
+          latitude: 37.5665,
+          longitude: 126.978,
+        },
+        destination: {
+          latitude: 37.5112,
+          longitude: 127.0981,
+        },
+        weight: -1, // 잘못된 무게
+      };
+
+      // when
+      const result = await request(app.getHttpServer())
+        .post('/api/v1/outbound-bundles/quick-charges')
+        .send(invalidRequest)
+        .set('Authorization', `Bearer ${authToken}`);
+
+      // then
+      const response = result.body as ApiResponse<any>;
+      expect(response.success).toBe(false);
+      expect(response.code).toBe('BAD_REQUEST');
+      expect(result.statusCode).toBe(400);
     });
   });
 });

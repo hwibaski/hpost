@@ -125,3 +125,36 @@ export class Location {
     });
   }
 }
+
+export class LocationCoordinate {
+  readonly latitude: number;
+  readonly longitude: number;
+
+  private constructor({
+    latitude,
+    longitude,
+  }: Pick<LocationCoordinate, 'latitude' | 'longitude'>) {
+    this.validateProps({ latitude, longitude });
+    this.latitude = latitude;
+    this.longitude = longitude;
+  }
+
+  static of({
+    latitude,
+    longitude,
+  }: Pick<LocationCoordinate, 'latitude' | 'longitude'>) {
+    return new LocationCoordinate({ latitude, longitude });
+  }
+
+  private validateProps({
+    latitude,
+    longitude,
+  }: Pick<LocationCoordinate, 'latitude' | 'longitude'>) {
+    if (latitude === null || latitude === undefined) {
+      throw ValidationFailException('위도는 필수 입력값입니다.');
+    }
+    if (longitude === null || longitude === undefined) {
+      throw ValidationFailException('경도는 필수 입력값입니다.');
+    }
+  }
+}

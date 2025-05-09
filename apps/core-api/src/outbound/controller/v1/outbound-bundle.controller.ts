@@ -1,12 +1,15 @@
 import { PlaceQuickOutboundBundleRequestDto } from '@core-api/outbound/controller/v1/request/place-quick-order-request.dto';
+import { QuickChargeRequestDto } from '@core-api/outbound/controller/v1/request/quick-charge-request.dto';
 import { BundleResponseDto } from '@core-api/outbound/controller/v1/response/bundle-response.dto';
 import { PlaceQuickOutboundBundleResponseDto } from '@core-api/outbound/controller/v1/response/place-order-response.dto';
 import { QuickBundleResponseDto } from '@core-api/outbound/controller/v1/response/quick-bundle-response.dto';
+import { QuickChargeResponseDto } from '@core-api/outbound/controller/v1/response/quick-charge-response.dto';
 import { AuthProvider } from '@core/auth/domain/object/auth-provider.domain';
 import { OutboundBundleId } from '@core/outbound/domain/object/outbound-bundle.domain';
 import { OutboundBundleFindUsecase } from '@core/outbound/usecase/outbound-bundle-find.usecase';
 import { OutboundBundleGetUsecase } from '@core/outbound/usecase/outbound-bundle-get.usecase';
 import { OutboundBundlePlaceOrderUsecase } from '@core/outbound/usecase/outbound-bundle-place-order.usecase';
+import { QuickChargeCalculateUsecase } from '@core/outbound/usecase/quick-charge-calculate.usecase';
 import { Pagination } from '@core/pagination/pagination';
 import { Sort } from '@core/pagination/sort';
 import {
@@ -29,6 +32,7 @@ export class OutboundBundleController {
     private readonly outboundBundleGetUsecase: OutboundBundleGetUsecase,
     private readonly outboundBundleFindUsecase: OutboundBundleFindUsecase,
     private readonly outboundBundlePlaceOrderUsecase: OutboundBundlePlaceOrderUsecase,
+    private readonly quickChargeCalculateUsecase: QuickChargeCalculateUsecase,
   ) {}
 
   @UseGuards(AuthGuard)
@@ -94,6 +98,22 @@ export class OutboundBundleController {
         limit,
         offset,
       ),
+    );
+  }
+
+  @Post('api/v1/outbound-bundles/quick-charges')
+  async calculateQuickCharge(
+    @Body() body: QuickChargeRequestDto,
+  ): Promise<ApiResponse<QuickChargeResponseDto>> {
+    const result = await this.quickChargeCalculateUsecase.execute(
+      body.origin.toLocationCoordinate(),
+      body.destination.toLocationCoordinate(),
+      body.getWeight(),
+    );
+
+    return ApiResponse.success(
+      'Quick charge calculated successfully',
+      QuickChargeResponseDto.from(result),
     );
   }
 }
